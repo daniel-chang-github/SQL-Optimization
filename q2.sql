@@ -18,4 +18,8 @@ SELECT name FROM Student WHERE id BETWEEN @v2 AND @v3;
 --     -> Table scan on Student  (cost=41.00 rows=400) (actual time=0.022..0.238 rows=400 loops=1)
 -- '
 
--- Crated an index on the Student table. However, the index is not being used. Is it becuase the query is searching for a range?
+
+/*
+Answer
+Crated an index on the Student table. However, the index is not being used. Is it becuase the query is searching for a range?
+*/

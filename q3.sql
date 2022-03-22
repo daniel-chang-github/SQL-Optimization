@@ -23,22 +23,7 @@ SELECT name FROM Student WHERE id IN (SELECT studId FROM Transcript WHERE crsCod
 --                     -> Filter: (transcript.crsCode = <cache>((@v4)))  (cost=10.25 rows=10) (actual time=0.048..0.099 rows=2 loops=1)
 --                         -> Table scan on Transcript  (cost=10.25 rows=100) (actual time=0.023..0.083 rows=100 loops=1)
 
-EXPLAIN  
-Select Student.name
-from Student, Transcript
-Where Student.id=Transcript.StudId AND Transcript.crsCode=@v4;
 
--- '-> Inner hash join (student.id = transcript.studId)  (cost=411.29 rows=400) (actual time=0.143..0.384 rows=2 loops=1)
---     -> Table scan on Student  (cost=0.50 rows=400) (actual time=0.005..0.225 rows=400 loops=1)
---     -> Hash
---         -> Filter: (transcript.crsCode = <cache>((@v4)))  (cost=10.25 rows=10) (actual time=0.059..0.110 rows=2 loops=1)
---             -> Table scan on Transcript  (cost=10.25 rows=100) (actual time=0.032..0.092 rows=100 loops=1)
--- '
-
-
-
-CREATE INDEX idx_id on student (id);
-CREATE INDEX idx_id on transcript (studId)
 
 EXPLAIN ANALYZE
 Select Student.name
@@ -51,4 +36,11 @@ Where Student.id=Transcript.StudId AND Transcript.crsCode=@v4;
 --     -> Index lookup on Student using idx_id (id=transcript.studId)  (cost=0.26 rows=1) (actual time=0.028..0.029 rows=1 loops=2)
 -- '
 
--- Answer. Created two indexes to reduce table scans. Table scan of 400 rows for Student table was reduced to 1 index lookup. I'm curious why the Transcript table is not using the index. It's still doing a table scan of 100 rows.
+/*
+Answer
+CREATE INDEX idx_id on student (id);
+CREATE INDEX idx_id on transcript (studId)
+
+Created two indexes to reduce table scans. Table scan of 400 rows for Student table was reduced to 1 index lookup. I'm curious why the Transcript table is not using the index. It's still doing a table scan of 100 rows.
+
+*/

@@ -61,6 +61,9 @@ AND deptId != @v7
 --                     -> Table scan on Course  (cost=10.25 rows=100) (actual time=0.014..0.076 rows=100 loops=1)
 --     -> Index lookup on Student using idx_id (id=transcript.studId)  (cost=0.25 rows=1) (actual time=0.002..0.003 rows=1 loops=30)
 
+/*
+Answer
+Index on Student table and used INNER JOINs instead of subqueries. Elimiated line 30 to 43. Line 22 and line 29 are the same.
+I'm curious why index in Transcript table was not used in q3 and q4 but it's beig used in q5.
 
--- Curious why index in Transcript table was not used in q3 and q4 but it's beig used in q5.
--- Index on Student table and inner joins instead of subqueries elimiated line 30 to 43. Line 22 and line 29 are the same.
+*/

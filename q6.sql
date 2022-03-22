@@ -106,4 +106,7 @@ And deptId='MAT'
 -- '
 
 
--- Reduced costs by using less SELECT statements. Also, I added "AND deptId = @v8 " at row 73 to filter the transactions before aggregating using GROUP BY.
+/*
+Answer
+Reduced costs by using less SELECT statements. Also, I added "AND deptId = @v8 " at row 73 to filter the transactions before aggregating using GROUP BY.
+*/

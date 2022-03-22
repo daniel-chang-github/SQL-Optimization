@@ -15,4 +15,8 @@ EXPLAIN analyze
 SELECT name FROM Student WHERE id = @v1;
 
 
--- Created an index in Student table. 100 row table scan to 1 index lookup.
+/*
+Answer
+CREATE INDEX idx_id on student (id)
+Created an index in Student table. 100 row table scan to 1 index lookup.
+*/

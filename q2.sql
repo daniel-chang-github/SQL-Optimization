@@ -22,10 +22,10 @@ SELECT name FROM Student WHERE id BETWEEN @v2 AND @v3;
 /*
 Answer
 Crated an index on the Student table. However, the index is not being used. Is it becuase the query is searching for a range?
-
-After the Skype call. Created a composit index and reduced 400 table scans to 278 index range scans. Bud the cost went up from 41 to 64.52??
-
 */
+
+-- After the Skype call. Created a composit index and reduced 400 table scans to 278 index range scans. Bud the cost went up from 41 to 64.52??
+
 CREATE INDEX student_indx ON Student(id,name) 
 
 EXPLAIN analyze

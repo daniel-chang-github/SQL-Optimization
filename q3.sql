@@ -44,3 +44,15 @@ CREATE INDEX idx_id on transcript (studId)
 Created two indexes to reduce table scans. Table scan of 400 rows for Student table was reduced to 1 index lookup. I'm curious why the Transcript table is not using the index. It's still doing a table scan of 100 rows.
 
 */
+
+-- After the Skype call, I created an index on course code (crsCode). The table scan of 100 on Transcript was reduced to index lookup of 2.
+
+CREATE INDEX idx_corsCode on transcript (crsCode)
+-- '-> Nested loop inner join  (cost=1.40 rows=2) (actual time=0.031..0.040 rows=2 loops=1)
+--     -> Filter: (transcript.studId is not null)  (cost=0.70 rows=2) (actual time=0.023..0.026 rows=2 loops=1)
+--         -> Index lookup on Transcript using idx_corsCode (crsCode=(@v4))  (cost=0.70 rows=2) (actual time=0.022..0.025 rows=2 loops=1)
+--     -> Index lookup on Student using idx_id (id=transcript.studId)  (cost=0.30 rows=1) (actual time=0.004..0.006 rows=1 loops=2)
+-- '
+
+
+
